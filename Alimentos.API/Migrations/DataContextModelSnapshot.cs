@@ -15,6 +15,18 @@ namespace Alimentos.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.2-servicing-10034");
 
+            modelBuilder.Entity("Alimentos.API.Model.Cardapio", b =>
+                {
+                    b.Property<int>("CardapioId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Lanche");
+
+                    b.HasKey("CardapioId");
+
+                    b.ToTable("Cardapio");
+                });
+
             modelBuilder.Entity("Alimentos.API.Model.Ingrediente", b =>
                 {
                     b.Property<int>("IngredienteId")

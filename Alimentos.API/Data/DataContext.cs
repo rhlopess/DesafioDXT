@@ -8,5 +8,6 @@ namespace Alimentos.API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options){}
 
         public DbSet<Ingrediente> Ingredientes { get; set; }
+        public DbSet<Cardapio> Cardapio { get; set; }
     }
 }

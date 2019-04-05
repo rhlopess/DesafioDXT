@@ -8,14 +8,26 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alimentos.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190405053608_init")]
-    partial class init
+    [Migration("20190404232447_inicialL")]
+    partial class inicialL
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.2-servicing-10034");
+
+            modelBuilder.Entity("Alimentos.API.Model.Cardapio", b =>
+                {
+                    b.Property<int>("CardapioId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Lanche");
+
+                    b.HasKey("CardapioId");
+
+                    b.ToTable("Cardapio");
+                });
 
             modelBuilder.Entity("Alimentos.API.Model.Ingrediente", b =>
                 {
