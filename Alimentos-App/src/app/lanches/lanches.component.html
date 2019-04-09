@@ -1,8 +1,51 @@
-<p>
-  Lanches works!
-</p>
-
-<div *ngFor="let lanche of lanches.result">
-  {{lanche.nome}}
-  {{lanche.valor}}
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    
+<div class="collapse navbar-collapse" id="navbarsExampleDefault" style="height:30px">  
 </div>
+</nav>
+
+<main role="main">
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+      <table class="table table-sm">
+          <thead>
+              <tr><h4>Cardápio</h4></tr>
+            <tr>
+              <th scope="col">Selecione</th>
+              <th scope="col">Lanche</th>
+              <th scope="col">Ingredientes</th> 
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let lanche of lanches.result">                  
+                  <td><button type="button" class="btn btn-success" (click)=selecionarLanche(lanche.cardapioId)>Selecionar</button></td>
+                  <td>{{lanche.lanche}}</td> 
+                  <td *ngFor="let item of lanche.ingredientes">{{item.nome}}</td>                       
+                </tr>
+          </tbody>
+        </table>        
+  </div>
+</div>
+
+<div *ngIf="mostrarGrid" class="container">
+    <table class="table table-sm">
+        <thead>
+            <tr><h4>Cardápio</h4></tr>
+          <tr>
+            <th scope="col">Lanche</th>
+            <th scope="col">Ingredientes</th> 
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lanche of lanche.result"> 
+                <td>{{lanche.lanche}}</td> 
+                <td *ngFor="let item of lanche.ingredientes">{{item.nome}}</td>                       
+              </tr>
+        </tbody>
+      </table>  
+</div>
+</main>
+</body> 

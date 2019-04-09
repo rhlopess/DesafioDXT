@@ -1,7 +1,7 @@
-using Alimentos.API.Model;
+using Alimentos.Dominio;
 using Microsoft.EntityFrameworkCore;
 
-namespace Alimentos.API.Data
+namespace Alimentos.Repositorio
 {
     public class DataContext : DbContext
     {

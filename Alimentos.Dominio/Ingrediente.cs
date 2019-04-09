@@ -1,4 +1,4 @@
-namespace Alimentos.API.Model
+namespace Alimentos.Dominio
 {
     public class Ingrediente
     {

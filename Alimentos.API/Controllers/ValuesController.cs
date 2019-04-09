@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Alimentos.API.Data;
-using Alimentos.API.Model;
+using Alimentos.Dominio;
+using Alimentos.Repositorio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +14,10 @@ namespace Alimentos.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public readonly DataContext _contexto;
-        public ValuesController(DataContext contexto)
+        public readonly IAlimentosRepositorio _alrep;
+        public ValuesController(IAlimentosRepositorio alrep)
         {
-            _contexto = contexto;
-
+            _alrep = alrep;
         }
 
         // GET api/values
@@ -27,46 +26,57 @@ namespace Alimentos.API.Controllers
         {
            try
            {
-               var results = _contexto.Ingredientes.ToListAsync();
+               var results = _alrep.RetornaCardapio();               
+               return Ok(results);
+           }
+           catch (System.Exception ex)
+           {
+               return  this.StatusCode(StatusCodes.Status500InternalServerError, "Consulta GET não está funcionando." + ex);
+           }     
+        }
+
+        [HttpGet("getIngredientes")]
+        public async Task<IActionResult> GetIngredientes()
+        {
+           try
+           {
+               var results = _alrep.RetornaIngredientes();               
+               return Ok(results);
+           }
+           catch (System.Exception ex)
+           {
+               return  this.StatusCode(StatusCodes.Status500InternalServerError, "Consulta GET não está funcionando." + ex);
+           }     
+        }
+
+        [HttpGet("{cardapioId}")]
+        public async Task<IActionResult> Get(int cardapioId)
+        {
+           try
+           {
+               var results = _alrep.RetornaCardapioById(cardapioId);               
+               return Ok(results);
+           }
+           catch (System.Exception ex)
+           {
+               return  this.StatusCode(StatusCodes.Status500InternalServerError, "Consulta GET não está funcionando." + ex);
+           }     
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Cardapio model)
+        {
+           try
+           {
+               var results = _alrep.CalculaValorLanche(model);
                return Ok(results);
            }
            catch (System.Exception)
            {
                return  this.StatusCode(StatusCodes.Status500InternalServerError, "Consulta não está funcionando.");
            }     
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
-        {
-           try
-           {
-               var results = _contexto.Ingredientes.FirstOrDefaultAsync(x => x.IngredienteId == id);
-               return Ok(results);
-           }
-           catch (System.Exception)
-           {
-               return  this.StatusCode(StatusCodes.Status500InternalServerError, "Consulta não está funcionando.");
-           }             
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
