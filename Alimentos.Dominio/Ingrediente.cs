@@ -4,7 +4,6 @@ namespace Alimentos.Dominio
     {
         public int IngredienteId { get; set; }
         public string Nome {get; set;}
-
-        public double Valor {get; set;}
+        public decimal Valor {get; set;}
     }
 }

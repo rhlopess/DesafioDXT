@@ -23,6 +23,8 @@ namespace Alimentos.Repositorio.Migrations
 
                     b.Property<string>("Lanche");
 
+                    b.Property<decimal>("Valor");
+
                     b.HasKey("CardapioId");
 
                     b.ToTable("Cardapio");
@@ -37,7 +39,7 @@ namespace Alimentos.Repositorio.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.Property<double>("Valor");
+                    b.Property<decimal>("Valor");
 
                     b.HasKey("IngredienteId");
 

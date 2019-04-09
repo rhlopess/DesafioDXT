@@ -12,7 +12,8 @@ namespace Alimentos.Repositorio.Migrations
                 {
                     CardapioId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Lanche = table.Column<string>(nullable: true)
+                    Lanche = table.Column<string>(nullable: true),
+                    Valor = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,7 +27,7 @@ namespace Alimentos.Repositorio.Migrations
                     IngredienteId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(nullable: true),
-                    Valor = table.Column<double>(nullable: false),
+                    Valor = table.Column<decimal>(nullable: false),
                     CardapioId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

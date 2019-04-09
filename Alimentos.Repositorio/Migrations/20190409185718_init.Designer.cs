@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alimentos.Repositorio.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190408230646_init")]
+    [Migration("20190409185718_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,8 @@ namespace Alimentos.Repositorio.Migrations
 
                     b.Property<string>("Lanche");
 
+                    b.Property<decimal>("Valor");
+
                     b.HasKey("CardapioId");
 
                     b.ToTable("Cardapio");
@@ -39,7 +41,7 @@ namespace Alimentos.Repositorio.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.Property<double>("Valor");
+                    b.Property<decimal>("Valor");
 
                     b.HasKey("IngredienteId");
 

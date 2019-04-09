@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LanchesService } from '../services/lanches.service';
 import { Cardapio } from '../models/cardapio';
 import { Ingrediente } from '../models/Ingrediente';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Pedido } from '../models/pedido';
 
 @Component({
   selector: 'app-lanches',
@@ -12,15 +14,34 @@ export class LanchesComponent implements OnInit {
 
   lanches: Cardapio[];
   ingredientes: Ingrediente[];
-  mostrarGrid = false;
+  mostrarGrid = true;
   valor: number;
   lanche: Cardapio[];
+  mostrarBotaoCalcular = false;
+  registerForm: FormGroup;
+  pedido: Pedido;
 
-  constructor(private lancheService: LanchesService) { }
+  constructor(
+    private lancheService: LanchesService,
+    private fb: FormBuilder,
+    ) { }
 
   ngOnInit() {
     this.getLanches();
     this.getIngredientes();
+    this.validacao();
+  }
+
+  validacao()  {
+    this.registerForm = this.fb.group({
+      lancheid: [],
+      adicionalid: []
+    });
+  }
+
+  CalcularValorLanche() {
+    this.pedido = Object.assign({}, this.registerForm.value);
+    this.lancheService.postLanches(this.pedido).subscribe();
   }
 
   getLanches() {
@@ -35,6 +56,7 @@ export class LanchesComponent implements OnInit {
 
   getIngredientes() {
     this.lancheService.getIngredientes().subscribe(
+// tslint:disable-next-line: variable-name
     (_ingrediente: Ingrediente[]) => {
     this.ingredientes = _ingrediente;
     console.log(_ingrediente);
@@ -50,7 +72,8 @@ export class LanchesComponent implements OnInit {
       }, error => {
         console.log(error);
       });
-    this.mostrarGrid = !this.mostrarGrid;
+    this.mostrarGrid = this.mostrarGrid;
+    this.mostrarBotaoCalcular = true;
 }
 }
 

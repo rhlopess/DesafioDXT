@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Alimentos.API.Models;
 using Alimentos.Dominio;
 using Alimentos.Repositorio;
 using Microsoft.AspNetCore.Http;
@@ -66,11 +67,12 @@ namespace Alimentos.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Post(Cardapio model)
+        public async Task<IActionResult> Post(Pedido pedido)
         {
            try
-           {
-               var results = _alrep.CalculaValorLanche(model);
+           { 
+               var mode2 = new Cardapio();
+               var results = _alrep.CalculaValorLanche(mode2);
                return Ok(results);
            }
            catch (System.Exception)

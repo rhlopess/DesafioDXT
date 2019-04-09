@@ -4,10 +4,7 @@
 <div class="collapse navbar-collapse" id="navbarsExampleDefault" style="height:30px">  
 </div>
 </nav>
-
 <main role="main">
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
       <table class="table table-sm">
@@ -23,29 +20,56 @@
               <tr *ngFor="let lanche of lanches.result">                  
                   <td><button type="button" class="btn btn-success" (click)=selecionarLanche(lanche.cardapioId)>Selecionar</button></td>
                   <td>{{lanche.lanche}}</td> 
-                  <td *ngFor="let item of lanche.ingredientes">{{item.nome}}</td>                       
+                  <td><label *ngFor="let item of lanche.ingredientes">{{item.nome}},</label></td>                       
                 </tr>
           </tbody>
         </table>        
   </div>
 </div>
 
-<div *ngIf="mostrarGrid" class="container">
-    <table class="table table-sm">
-        <thead>
-            <tr><h4>Cardápio</h4></tr>
-          <tr>
-            <th scope="col">Lanche</th>
-            <th scope="col">Ingredientes</th> 
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let lanche of lanche.result"> 
-                <td>{{lanche.lanche}}</td> 
-                <td *ngFor="let item of lanche.ingredientes">{{item.nome}}</td>                       
-              </tr>
-        </tbody>
-      </table>  
+<div class="container" *ngIf="mostrarGrid" >
+  <form [formGroup]="registerForm" *ngFor="let lanche of lanche.result">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label>Lanche</label>
+        <input type="hidden" value={{lanche.cardapioId}} formControlName="lancheid">
+        <input type="text" value={{lanche.lanche}} class="form-control">
+      </div>
+    </div>  
+    <div class="form-row" >
+      <div class="form-group col-md-8">
+      <label>Ingredientes</label>
+      <table class="form-control" border= "0">
+        <tr>        
+          <td><label  *ngFor="let item of lanche.ingredientes">{{item.nome}},</label></td>            
+        </tr>
+      </table>    
+      </div>
+      <div class="form-group col-md-4">
+        <label> $Valor</label>        
+        <input type="text" value={{lanche.valor}} class="form-control">
+      </div>
+    </div> 
+    <div class="form-row">
+      <label>&nbsp;Adicionais</label>
+      <div class="form-group col-md-12" >
+      <table>
+        <tr *ngFor="let ing of ingredientes.result">
+          <td><label>{{ing.nome}}</label> </td>
+          <td><input type="text" class="form-control" formControlName="adicionalid"></td>
+        </tr>
+      </table>
+    </div>
+</div> 
+</form>
+<br>
+<div *ngIf="mostrarBotaoCalcular" class="col-12" style="text-align: right; margin-bottom: 10%;">
+  <button type="button" (click)="CalcularValorLanche()" class="btn btn-danger">Calcular Valor</button>
 </div>
+</div>
+<br>
+<br>
+<p>Form Vlue: {{registerForm.value | json}}</p>
+<p>Form Vlue: {{registerForm.status | json}}</p>
 </main>
 </body> 

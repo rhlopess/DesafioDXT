@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cardapio } from '../models/cardapio';
 import { Ingrediente } from '../models/Ingrediente';
+import { Pedido } from '../models/pedido';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class LanchesService {
     return this.http.get<Cardapio[]>(`${this.url}/${id}`);
   }
 
-  postLanches(lanche: Cardapio) {
-    return this.http.post<Cardapio[]>(`${this.url}`, lanche);
+  postLanches(pedido: Pedido) {
+    return this.http.post<Pedido>(`${this.url}`, pedido);
   }
 }
