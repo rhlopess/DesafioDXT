@@ -25,9 +25,13 @@ namespace Alimentos.Repositorio
         {
             var retornoCardapio = RetornaCardapioById(idLanche);
             var retornoIngrediente = RetornaIngredienteById(idIngrediente);
-            var ingrediente = retornoIngrediente.FirstOrDefault();            
-            
-            if((idLanche == 2 || idLanche == 3) && idIngrediente == 1) //ligth
+            var ingrediente = retornoIngrediente.FirstOrDefault(); 
+           
+            if(qtd == 0)
+            {
+               valor = valor - ingrediente.Valor;  
+            }
+            else if((idLanche == 2 || idLanche == 3) && idIngrediente == 1) //ligth
             { 
                 valor = valor + (ingrediente.Valor * qtd);               
                 decimal desconto = 10;
@@ -41,7 +45,6 @@ namespace Alimentos.Repositorio
                 valor = valor + (ingrediente.Valor * qtd);  
             }else{
 
-                qtd++;
                 valor = valor + (ingrediente.Valor * qtd);
             }
 
