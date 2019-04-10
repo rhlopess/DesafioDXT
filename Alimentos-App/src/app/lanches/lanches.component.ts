@@ -34,7 +34,7 @@ export class LanchesComponent implements OnInit {
 
   validacao()  {
     this.registerForm = this.fb.group({
-      lancheid: [],
+      cardapioid: [],
       adicionalid: []
     });
   }
@@ -43,6 +43,23 @@ export class LanchesComponent implements OnInit {
     this.pedido = Object.assign({}, this.registerForm.value);
     this.lancheService.postLanches(this.pedido).subscribe();
   }
+
+  CalcularValorLanche2(idIngrediente: number, idLanche: number) {
+     this.pedido = Object.assign({}, this.registerForm.value);
+     this.lancheService.getValorLanche(idIngrediente, this.pedido.adicionalid, idLanche).subscribe();
+  }
+
+  selecionarLanche(id: number) {
+    this.lancheService.getLancheById(id).subscribe(
+      ( _lanche: Cardapio[]) => {
+        this.lanche = _lanche;
+        console.log(_lanche);
+      }, error => {
+        console.log(error);
+      });
+    this.mostrarGrid = this.mostrarGrid;
+    this.mostrarBotaoCalcular = true;
+}
 
   getLanches() {
       this.lancheService.getLanches().subscribe(
@@ -63,17 +80,6 @@ export class LanchesComponent implements OnInit {
   }, error => {
     console.log(error);
   });
-}
-  selecionarLanche(id: number) {
-    this.lancheService.getLancheById(id).subscribe(
-      ( _lanche: Cardapio[]) => {
-        this.lanche = _lanche;
-        console.log(_lanche);
-      }, error => {
-        console.log(error);
-      });
-    this.mostrarGrid = this.mostrarGrid;
-    this.mostrarBotaoCalcular = true;
 }
 }
 

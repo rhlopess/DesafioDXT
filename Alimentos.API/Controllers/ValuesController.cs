@@ -63,6 +63,20 @@ namespace Alimentos.API.Controllers
                return  this.StatusCode(StatusCodes.Status500InternalServerError, "Consulta GET não está funcionando." + ex);
            }     
         }
+        
+        [HttpGet("{idIngrediente},{qtd},{idLanche}")]
+        public async Task<IActionResult> Get(int idIngrediente, int qtd, int idLanche)
+        {
+           try
+           {
+               var results = _alrep.RetornaCardapioById(idLanche);               
+               return Ok(results);
+           }
+           catch (System.Exception ex)
+           {
+               return  this.StatusCode(StatusCodes.Status500InternalServerError, "Consulta GET não está funcionando." + ex);
+           }     
+        }
 
 
 

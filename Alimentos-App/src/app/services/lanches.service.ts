@@ -27,4 +27,9 @@ export class LanchesService {
   postLanches(pedido: Pedido) {
     return this.http.post<Pedido>(`${this.url}`, pedido);
   }
+
+  getValorLanche(idIngrediente: number, qtd: number, idLanche: number): Observable<Cardapio[]> {
+    return this.http.get<Cardapio[]>(`${this.url}/${idIngrediente},${qtd},${idLanche}`);
+  }
+
 }

@@ -32,7 +32,7 @@
     <div class="form-row">
       <div class="form-group col-md-12">
         <label>Lanche</label>
-        <input type="hidden" value={{lanche.cardapioId}} formControlName="lancheid">
+        <input type="hidden" value={{lanche.cardapioId}} formControlName="cardapioid">
         <input type="text" value={{lanche.lanche}} class="form-control">
       </div>
     </div>  
@@ -53,10 +53,11 @@
     <div class="form-row">
       <label>&nbsp;Adicionais</label>
       <div class="form-group col-md-12" >
-      <table>
+      <table >
         <tr *ngFor="let ing of ingredientes.result">
-          <td><label>{{ing.nome}}</label> </td>
-          <td><input type="text" class="form-control" formControlName="adicionalid"></td>
+          <td><label>{{ing.nome}}</label> </td>                  
+          <td><input type="text" class="form-control" formControlName="adicionalid"></td>          
+          <td><button type="button" class="btn btn-secondary"  (click)="CalcularValorLanche2(ing.ingredienteId,lanche.cardapioId)">Add</button></td>           
         </tr>
       </table>
     </div>
@@ -64,7 +65,7 @@
 </form>
 <br>
 <div *ngIf="mostrarBotaoCalcular" class="col-12" style="text-align: right; margin-bottom: 10%;">
-  <button type="button" (click)="CalcularValorLanche()" class="btn btn-danger">Calcular Valor</button>
+  <button type="button" (click)="CalcularValorLanche2()" class="btn btn-danger">Calcular Valor</button>
 </div>
 </div>
 <br>
