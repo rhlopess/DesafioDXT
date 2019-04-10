@@ -66,7 +66,8 @@
             <td><label>{{ing.nome}}</label> </td>
             <td><label>{{ing.valor}}</label> </td>                  
             <td><input type="text" class="form-control" formControlName="adicionalid"></td>          
-            <td><button type="button" class="btn btn-secondary"  (click)="CalcularValorLanche2(ing.ingredienteId,lanche.valor,lanche.cardapioId)">Add</button></td>           
+            <td><button *ngIf="!mostraValor" type="button" class="btn btn-secondary"  (click)="CalcularValorLanche2(ing.ingredienteId,lanche.valor,lanche.cardapioId)">Add</button></td> 
+            <td><button *ngIf="mostraValor" type="button" class="btn btn-secondary"  (click)="CalcularValorLanche2(ing.ingredienteId,novoValor,lanche.cardapioId)">Add</button></td>           
           </tr>
         </tbody>
       </table>
@@ -80,8 +81,5 @@
 </div>
 <br>
 <br>
-<p>{{novoValor}}</p>
-<p>Form Vlue: {{registerForm.value | json}}</p>
-<p>Form Vlue: {{registerForm.status | json}}</p>
 </main>
 </body> 
