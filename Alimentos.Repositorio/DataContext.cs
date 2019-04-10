@@ -9,5 +9,7 @@ namespace Alimentos.Repositorio
 
         public DbSet<Ingrediente> Ingredientes { get; set; }
         public DbSet<Cardapio> Cardapio { get; set; }
+
+         public DbSet<Lanches> Lanches { get; set; }
     }
 }

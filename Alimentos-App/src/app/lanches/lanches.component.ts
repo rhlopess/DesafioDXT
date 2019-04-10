@@ -20,6 +20,8 @@ export class LanchesComponent implements OnInit {
   mostrarBotaoCalcular = false;
   registerForm: FormGroup;
   pedido: Pedido;
+  novoValor: number;
+  mostraValor = false;
 
   constructor(
     private lancheService: LanchesService,
@@ -44,16 +46,24 @@ export class LanchesComponent implements OnInit {
     this.lancheService.postLanches(this.pedido).subscribe();
   }
 
-  CalcularValorLanche2(idIngrediente: number, idLanche: number) {
+  CalcularValorLanche2(idIngrediente: number, valor: number, idLanche: number) {
      this.pedido = Object.assign({}, this.registerForm.value);
-     this.lancheService.getValorLanche(idIngrediente, this.pedido.adicionalid, idLanche).subscribe();
+     this.lancheService.getValorLanche(idIngrediente, valor, this.pedido.adicionalid, idLanche).subscribe(
+       (newvalue: number) => {
+         this.novoValor = newvalue;
+         this.mostraValor = true;
+         console.log(newvalue);
+        }, error => {
+          console.log(error);
+       });
   }
 
   selecionarLanche(id: number) {
     this.lancheService.getLancheById(id).subscribe(
-      ( _lanche: Cardapio[]) => {
-        this.lanche = _lanche;
-        console.log(_lanche);
+      ( newlanche: Cardapio[]) => {
+        this.lanche = newlanche;
+        this.mostraValor = false;
+        console.log(newlanche);
       }, error => {
         console.log(error);
       });
@@ -63,9 +73,9 @@ export class LanchesComponent implements OnInit {
 
   getLanches() {
       this.lancheService.getLanches().subscribe(
-      (_lanches: Cardapio[]) => {
-      this.lanches = _lanches;
-      console.log(_lanches);
+      (newlanches: Cardapio[]) => {
+      this.lanches = newlanches;
+      console.log(newlanches);
     }, error => {
       console.log(error);
     });
@@ -73,14 +83,11 @@ export class LanchesComponent implements OnInit {
 
   getIngredientes() {
     this.lancheService.getIngredientes().subscribe(
-// tslint:disable-next-line: variable-name
-    (_ingrediente: Ingrediente[]) => {
-    this.ingredientes = _ingrediente;
-    console.log(_ingrediente);
+    (newingrediente: Ingrediente[]) => {
+    this.ingredientes = newingrediente;
+    console.log(newingrediente);
   }, error => {
     console.log(error);
   });
 }
 }
-
-

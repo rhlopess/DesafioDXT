@@ -64,12 +64,12 @@ namespace Alimentos.API.Controllers
            }     
         }
         
-        [HttpGet("{idIngrediente},{qtd},{idLanche}")]
-        public async Task<IActionResult> Get(int idIngrediente, int qtd, int idLanche)
+        [HttpGet("{idIngrediente},{valor},{qtd},{idLanche}")]
+        public async Task<IActionResult> Get(int idIngrediente, decimal valor, int qtd, int idLanche)
         {
            try
            {
-               var results = _alrep.RetornaCardapioById(idLanche);               
+               var results = _alrep.CalculaValorLanchePromocao(idIngrediente, valor, qtd, idLanche);               
                return Ok(results);
            }
            catch (System.Exception ex)
@@ -78,16 +78,12 @@ namespace Alimentos.API.Controllers
            }     
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> Post(Pedido pedido)
         {
            try
-           { 
-               var mode2 = new Cardapio();
-               var results = _alrep.CalculaValorLanche(mode2);
-               return Ok(results);
+           {                
+               return Ok();
            }
            catch (System.Exception)
            {

@@ -35,23 +35,37 @@ namespace Alimentos.Repositorio.Migrations
                     b.Property<int>("IngredienteId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CardapioId");
-
                     b.Property<string>("Nome");
 
                     b.Property<decimal>("Valor");
 
                     b.HasKey("IngredienteId");
 
-                    b.HasIndex("CardapioId");
-
                     b.ToTable("Ingredientes");
                 });
 
-            modelBuilder.Entity("Alimentos.Dominio.Ingrediente", b =>
+            modelBuilder.Entity("Alimentos.Dominio.Lanches", b =>
+                {
+                    b.Property<int>("LanchesId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CardapioId");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<decimal>("Valor");
+
+                    b.HasKey("LanchesId");
+
+                    b.HasIndex("CardapioId");
+
+                    b.ToTable("Lanches");
+                });
+
+            modelBuilder.Entity("Alimentos.Dominio.Lanches", b =>
                 {
                     b.HasOne("Alimentos.Dominio.Cardapio")
-                        .WithMany("Ingredientes")
+                        .WithMany("Lanches")
                         .HasForeignKey("CardapioId");
                 });
 #pragma warning restore 612, 618

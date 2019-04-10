@@ -6,9 +6,10 @@ namespace Alimentos.Repositorio
     public interface IAlimentosRepositorio
     {
         //GERAL
-         Task<float> CalculaValorLanche(Cardapio model);
+         decimal CalculaValorLanchePromocao(int idIngrediente, decimal valor, int qtd, int idLanche);
          Task<Cardapio[]> RetornaCardapio();
          Task<Ingrediente[]> RetornaIngredientes();
          Task<Cardapio[]> RetornaCardapioById(int idCardapio);
+         
     }
 }

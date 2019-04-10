@@ -20,13 +20,12 @@
               <tr *ngFor="let lanche of lanches.result">                  
                   <td><button type="button" class="btn btn-success" (click)=selecionarLanche(lanche.cardapioId)>Selecionar</button></td>
                   <td>{{lanche.lanche}}</td> 
-                  <td><label *ngFor="let item of lanche.ingredientes">{{item.nome}},</label></td>                       
+                  <td><label *ngFor="let item of lanche.lanches">{{item.nome}},</label></td>                       
                 </tr>
           </tbody>
         </table>        
   </div>
 </div>
-
 <div class="container" *ngIf="mostrarGrid" >
   <form [formGroup]="registerForm" *ngFor="let lanche of lanche.result">
     <div class="form-row">
@@ -41,24 +40,35 @@
       <label>Ingredientes</label>
       <table class="form-control" border= "0">
         <tr>        
-          <td><label  *ngFor="let item of lanche.ingredientes">{{item.nome}},</label></td>            
+          <td><label  *ngFor="let item of lanche.lanches">{{item.nome}},</label></td>            
         </tr>
       </table>    
       </div>
       <div class="form-group col-md-4">
-        <label> $Valor</label>        
-        <input type="text" value={{lanche.valor}} class="form-control">
+        <label> $Valor Total:</label>        
+        <input *ngIf="!mostraValor" type="text" value={{lanche.valor}} class="form-control">
+        <input *ngIf="mostraValor" type="text" value={{novoValor}} class="form-control">
       </div>
     </div> 
-    <div class="form-row">
-      <label>&nbsp;Adicionais</label>
+    <div class="form-row">      
       <div class="form-group col-md-12" >
       <table >
-        <tr *ngFor="let ing of ingredientes.result">
-          <td><label>{{ing.nome}}</label> </td>                  
-          <td><input type="text" class="form-control" formControlName="adicionalid"></td>          
-          <td><button type="button" class="btn btn-secondary"  (click)="CalcularValorLanche2(ing.ingredienteId,lanche.cardapioId)">Add</button></td>           
-        </tr>
+        <thead>
+          <tr><h4>Adicionais</h4></tr>
+          <tr>
+            <th>Ingrediente</th>
+            <th>Valor</th>
+            <th>Quantidade</th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ing of ingredientes.result">
+            <td><label>{{ing.nome}}</label> </td>
+            <td><label>{{ing.valor}}</label> </td>                  
+            <td><input type="text" class="form-control" formControlName="adicionalid"></td>          
+            <td><button type="button" class="btn btn-secondary"  (click)="CalcularValorLanche2(ing.ingredienteId,lanche.valor,lanche.cardapioId)">Add</button></td>           
+          </tr>
+        </tbody>
       </table>
     </div>
 </div> 
@@ -70,6 +80,7 @@
 </div>
 <br>
 <br>
+<p>{{novoValor}}</p>
 <p>Form Vlue: {{registerForm.value | json}}</p>
 <p>Form Vlue: {{registerForm.status | json}}</p>
 </main>
